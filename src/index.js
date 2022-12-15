@@ -1,13 +1,27 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React, { Suspense } from "react";
+import ReactDOM from "react-dom/client";
+import { Provider } from "react-redux";
+import reportWebVitals from "./reportWebVitals";
+import ThemedSuspense from "./components/ThemedSuspense";
+import { ConfirmationDialogProvider } from "./components/Alert";
+import { ContextProvider } from "./context/ContextProvider";
+import App from "./App";
+import store from "./store";
+import "./assets/styles/tailwind.css";
+import "./assets/styles/tailwind.output.css";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
+    <ConfirmationDialogProvider>
+      <ContextProvider>
+        <Provider store={store}>
+          <Suspense fallback={<ThemedSuspense />}>
+            <App />
+          </Suspense>
+        </Provider>
+      </ContextProvider>
+    </ConfirmationDialogProvider>
   </React.StrictMode>
 );
 

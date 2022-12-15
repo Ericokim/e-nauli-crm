@@ -9,13 +9,46 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.0"
+    "web-vitals": "^2.1.0",
+    "@rematch/core": "^2.2.0",
+    "@rematch/loading": "^2.1.2",
+    "@rematch/persist": "^2.1.2",
+    "@tippyjs/react": "^4.2.6",
+    "@wojtekmaj/react-daterange-picker": "^3.4.0",
+    "axios": "^0.27.2",
+    "date-fns": "^2.28.0",
+    "formik": "^2.2.9",
+    "highcharts": "^10.2.0",
+    "highcharts-react-official": "^3.1.0",
+    "jspdf": "^2.5.1",
+    "jspdf-autotable": "^3.5.25",
+    "material-ripple-effects": "^2.0.1",
+    "papaparse": "^5.3.2",
+    "react-datepicker": "^4.8.0",
+    "react-icons": "^4.4.0",
+    "react-redux": "^8.0.2",
+    "react-router-dom": "^6.3.0",
+    "react-select": "^5.3.2",
+    "react-table": "^7.8.0",
+    "react-table-plugins": "^1.3.2",
+    "react-tiny-popover": "^7.0.1",
+    "react-toastify": "^9.0.4",
+    "react-tooltip": "^4.2.21",
+    "redux": "^4.2.0",
+    "redux-persist": "^6.0.0",
+    "redux-thunk": "^2.4.1",
+    "sweetalert2": "^11.4.18",
+    "sweetalert2-react-content": "^5.0.0",
+    "underscore": "^1.13.6",
+    "xlsx": "0.17.0",
+    "yup": "^0.32.11"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "npm run watch:css && react-scripts start",
+    "build": "npm run watch:css && CI=false && react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "watch:css": "postcss src/assets/styles/tailwind.css -o src/assets/styles/tailwind.output.css"
   },
   "eslintConfig": {
     "extends": [
@@ -34,5 +67,20 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.8",
+    "classnames": "^2.3.1",
+    "framer-motion": "^6.3.11",
+    "moment": "^2.29.3",
+    "postcss": "^8.4.16",
+    "postcss-cli": "^9.1.0",
+    "prettier": "^2.7.1",
+    "prettier-plugin-tailwindcss": "^0.1.11",
+    "react-loading": "^2.0.3",
+    "react-moment": "^1.1.2",
+    "redux-devtools-extension": "^2.13.9",
+    "sass": "^1.52.3",
+    "tailwindcss": "^3.1.8"
   }
 }
