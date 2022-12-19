@@ -183,3 +183,43 @@ export const AuthLogout = {
     };
   },
 };
+
+export const AuthOTP = {
+  state: {},
+  reducers: {
+    OTP_REQUEST: (state, payload) => {
+      return {
+        loading: true,
+      };
+    },
+    OTP_SUCCESS: (state, payload) => {
+      return {
+        loading: false,
+        OTP: payload,
+        success: payload.status.message,
+      };
+    },
+    OTP_FAIL: (state, payload) => {
+      return {
+        loading: false,
+        error: payload.status.message,
+      };
+    },
+  },
+  effects: (dispatch) => {
+    return {
+      async VerifyOTP(formData) {
+        try {
+          this.OTP_REQUEST();
+
+          const { data } = await api.post(`/api/v1/auth/verifyCode`, formData);
+
+          localStorage.setItem("OTP", JSON.stringify(data[0]));
+          this.OTP_SUCCESS(data);
+        } catch (error) {
+          this.OTP_FAIL(error);
+        }
+      },
+    };
+  },
+};

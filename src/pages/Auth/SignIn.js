@@ -18,8 +18,8 @@ const Loading = () => (
 const Login = () => {
   const navigate = useNavigate();
   const initialValues = {
-    emailOrPhoneNumber: "254713081296",
-    password: "123456",
+    emailOrPhoneNumberOrId: "",
+    pin: "",
   };
 
   const dispatch = useDispatch();
@@ -35,8 +35,8 @@ const Login = () => {
 
   const onSubmit = async (values, { setSubmitting, resetForm }) => {
     const formData = {
-      emailOrPhoneNumber: values.emailOrPhoneNumber,
-      password: values.password,
+      emailOrPhoneNumberOrId: values.emailOrPhoneNumberOrId,
+      pin: values.pin,
     };
 
     console.log(formData);
@@ -99,16 +99,16 @@ const Login = () => {
                   <Form id="login-User" className="flex flex-col pt-2 md:pt-8">
                     <FInput
                       type="text"
-                      name="emailOrPhoneNumber"
+                      name="emailOrPhoneNumberOrId"
                       label="email Or PhoneNumber"
                       placeholder="email Or PhoneNumber"
                     />
 
                     <FInput
                       type="password"
-                      name="password"
-                      label="Password"
-                      placeholder="Password"
+                      name="pin"
+                      label="Pin"
+                      placeholder="Pin"
                     />
 
                     {/* <hr className="my-8" /> */}
