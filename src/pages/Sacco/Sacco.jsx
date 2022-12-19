@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useMemo, useRef } from "react";
+import React, {
+  useState,
+  useEffect,
+  useMemo,
+  useLayoutEffect,
+  useRef,
+} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Toggle } from "../../components/Button";
 import { Notification, Alert, Message } from "../../components/Alert";
@@ -69,6 +75,13 @@ const Machines = () => {
   const getSaccos = useSelector((state) => state.getSaccos);
   const { loading, error, saccos, totalCount } = getSaccos;
 
+  const updateSaccoStatus = useSelector((state) => state.updateSaccoStatus);
+  const {
+    loading: loadingStatus,
+    error: errorStatus,
+    success: successStatus,
+  } = updateSaccoStatus;
+
   const tableData = () => {
     const params = {
       page: page,
@@ -76,8 +89,12 @@ const Machines = () => {
     };
 
     dispatch.getSaccos.Saccos(params);
+
+    if (successStatus || errorStatus) {
+      dispatch.updateSaccoStatus.RESET();
+    }
   };
-  useEffect(tableData, [dispatch, page, pageSize]);
+  useEffect(tableData, [dispatch, page, pageSize, successStatus, errorStatus]);
 
   const OnRefresh = () => {
     tableData();
@@ -121,9 +138,45 @@ const Machines = () => {
       },
 
       {
-        Header: "isActive",
+        Header: "Status",
         accessor: "isActive",
-        Cell: Blacklisted,
+        // Cell: Blacklisted,
+        Cell: ({ value, row }) => {
+          const item = row.original;
+          const [toggle, setToggle] = useState(null);
+
+          useLayoutEffect(() => {
+            if (value) {
+              setToggle(true);
+            } else {
+              setToggle(false);
+            }
+          }, [value]);
+
+          const handleClick = async (e) => {
+            setToggle(e);
+
+            const params = {
+              id: item.saccoId,
+              activate: e,
+            };
+            console.log(params);
+            await dispatch.updateSaccoStatus.Status(params);
+            OnRefresh();
+          };
+
+          return (
+            <div className="flex items-center py-1">
+              <Toggle
+                name="status"
+                id="status"
+                checked={toggle}
+                onChange={(e) => handleClick(e)}
+                text={["Active", "InActive"]}
+              />
+            </div>
+          );
+        },
       },
       {
         Header: "postalAddress",
@@ -183,6 +236,8 @@ const Machines = () => {
 
   return (
     <main className="mt-16">
+      {successStatus && Alert("success", `${successStatus}`)}
+      {errorStatus && Alert("error", `${errorStatus}`)}
       <SectionTitle>Sacco</SectionTitle>
 
       <DataTable

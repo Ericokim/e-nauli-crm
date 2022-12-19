@@ -5,7 +5,7 @@ import {
   AuthLogout,
 } from "./Auth";
 import { getVehicles, addVehicle, updateVehicle } from "./Vehicle";
-import { getSaccos, addSacco, updateSacco } from "./Sacco";
+import { getSaccos, addSacco, updateSacco, updateSaccoStatus } from "./Sacco";
 
 export const models = {
   AuthLogin,
@@ -20,4 +20,5 @@ export const models = {
   getSaccos,
   addSacco,
   updateSacco,
+  updateSaccoStatus,
 };
