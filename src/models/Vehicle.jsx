@@ -39,7 +39,7 @@ export const getVehicles = {
             this.REQUEST();
 
             const { data } = await api.get(
-              `/api/v1/fleet/getVehicles?offset=${params.page}&pageSize=${params.pageSize}&saccoId=${params.saccoId}`
+              `/api/v1/fleet/getVehicles?offset=${params.page}&pageSize=${params.pageSize}&saccoId=${params.saccoId}&isActive=${params.isActive}`
             );
 
             this.SUCCESS(data);
@@ -51,7 +51,7 @@ export const getVehicles = {
             this.REQUEST();
 
             const { data } = await api.get(
-              `/api/v1/fleet/getVehicles?offset=${params.page}&pageSize=${params.pageSize}&routeId=${params.routeId}`
+              `/api/v1/fleet/getVehicles?offset=${params.page}&pageSize=${params.pageSize}&routeId=${params.routeId}&isActive=${params.isActive}`
             );
 
             this.SUCCESS(data);
@@ -63,7 +63,7 @@ export const getVehicles = {
             this.REQUEST();
 
             const { data } = await api.get(
-              `/api/v1/fleet/getVehicles?offset=${params.page}&pageSize=${params.pageSize}`
+              `/api/v1/fleet/getVehicles?offset=${params.page}&pageSize=${params.pageSize}&isActive=${params.isActive}`
             );
 
             this.SUCCESS(data);

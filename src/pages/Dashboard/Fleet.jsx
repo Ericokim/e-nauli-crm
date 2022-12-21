@@ -10,35 +10,15 @@ import SectionTitle from "../../components/Typography/SectionTitle";
 import { useStateContext } from "../../context/ContextProvider";
 import comma from "../../components/commaSeparator";
 import { CSelect, SInput } from "../../components/Input/cInput";
+import { FilterIcon, SearchIcon } from "../../icons";
+import {
+  PopoverItem,
+  PopoverHeader,
+  PopoverBody,
+} from "../../components/Popover/Popover";
 import Loader from "../../components/Loader";
 import Add from "./Add";
 import Update from "./Update";
-
-const StatusPill = ({ value }) => {
-  const [toggle, setToggle] = useState(value);
-
-  const handleClick = () => {
-    setToggle(!toggle);
-    if (toggle) {
-      Alert("error", "Status InActive");
-    } else {
-      Alert("success", "Status Active");
-    }
-    console.log(!toggle);
-  };
-
-  return (
-    <div className="flex items-center py-1">
-      <Toggle
-        name="status"
-        id="status"
-        checked={toggle}
-        onChange={handleClick}
-        text={["Active", "InActive"]}
-      />
-    </div>
-  );
-};
 
 const Blacklisted = ({ value }) => {
   return (
@@ -50,11 +30,24 @@ const Blacklisted = ({ value }) => {
   );
 };
 
+const Options = [
+  {
+    value: true,
+    label: "Active",
+  },
+  {
+    value: false,
+    label: "InActive",
+  },
+];
+
 const Fleet = () => {
   const dispatch = useDispatch();
   const { currentColor, colorGradient } = useStateContext();
 
   const [searchTerm, setsearchTerm] = useState("");
+  const [saccoId, setsaccoId] = useState("");
+  const [status, setStatus] = useState("");
 
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
@@ -67,29 +60,43 @@ const Fleet = () => {
   const getVehicles = useSelector((state) => state.getVehicles);
   const { loading, error, vehicles, totalCount } = getVehicles;
 
+  const getSaccos = useSelector((state) => state.getSaccos);
+  const { saccos } = getSaccos;
+
   const tableData = () => {
     const params = {
       page: page,
       pageSize: pageSize,
+      isActive: status,
+      saccoId: saccoId ? saccoId : "",
     };
 
     dispatch.getVehicles.Vehicle(params);
+    dispatch.getSaccos.Saccos(params);
   };
-  useEffect(tableData, [dispatch, page, pageSize]);
+  useEffect(tableData, [dispatch, page, pageSize, saccoId, status]);
 
   const onSearch = () => {
     const params = {
       page: page - 1,
       pageSize: pageSize,
-      saccoId: searchTerm,
     };
 
     dispatch.getVehicles.Vehicle(params);
   };
 
+  // sacco Options
+  let saccoOptions =
+    saccos &&
+    saccos.map((item) => {
+      return { value: item.saccoId, label: item.name };
+    });
+
   const OnRefresh = () => {
     tableData();
     setsearchTerm("");
+    setStatus("");
+    setsaccoId("");
   };
 
   const handleShow = (currentTableData) => {
@@ -120,7 +127,7 @@ const Fleet = () => {
       },
 
       {
-        Header: "isActive",
+        Header: "Status",
         accessor: "isActive",
         Cell: Blacklisted,
       },
@@ -222,23 +229,75 @@ const Fleet = () => {
             >
               <i className="bx bx-refresh text-2xl" />
             </Button>
+
             <Button
               type="button"
               color="green"
-              size="sm"
+              size="regular"
               ripple="light"
               buttonType="outline"
               className="w-fit h-10 font-semibold"
               rounded={false}
               block={false}
               hover={true}
-              iconOnly={false}
-              title="Add Trip"
+              iconOnly={true}
+              title="Add Vehicle"
               onClick={() => setShowModal(true)}
             >
               <i className="bx bx-plus text-xl font-bold" />
-              Add Vehicle
             </Button>
+
+            <PopoverItem
+              align="end"
+              // positions={["top", "right", "left", "bottom"]}
+              position={["bottom"]}
+              className="w-100px"
+              Button={
+                <Button
+                  color="blueGray"
+                  buttonType="filled"
+                  size="regular"
+                  rounded={false}
+                  block={false}
+                  iconOnly={false}
+                  hover={true}
+                  ripple="light"
+                  title="Date Filter"
+                  className="h-10"
+                >
+                  <FilterIcon className="mr-1 h-4 w-4 text-white" />
+                  Filter By:
+                </Button>
+              }
+            >
+              <PopoverBody className={`w-96 px-2 `}>
+                <CSelect
+                  type="text"
+                  label="Status"
+                  id="status"
+                  name="status"
+                  className={"w-100px"}
+                  options={Options}
+                  value={Options.find((obj) => obj.value === status)}
+                  onChange={(e) => setStatus(e.value)}
+                  isClearable
+                  isSearchable
+                />
+
+                <CSelect
+                  type="text"
+                  id="saccoId"
+                  label="Sacco"
+                  name="saccoId"
+                  className={"w-100px"}
+                  options={saccoOptions}
+                  value={saccoOptions.find((obj) => obj.value === saccoId)}
+                  onChange={(e) => setsaccoId(e ? e.value : null)}
+                  isClearable
+                  isSearchable
+                />
+              </PopoverBody>
+            </PopoverItem>
 
             <SInput
               id="SearchUser"
