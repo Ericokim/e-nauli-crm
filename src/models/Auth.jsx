@@ -1,5 +1,46 @@
 import api from "../utils/api";
 
+export const AuthRegister = {
+  state: {},
+  reducers: {
+    REQUEST: (state, payload) => {
+      return {
+        loading: true,
+      };
+    },
+    SUCCESS(state, payload) {
+      return {
+        loading: false,
+        userInfo: payload,
+      };
+    },
+    FAIL: (state, payload) => {
+      return {
+        loading: false,
+        error: payload.response ? payload.response.data?.error : payload.error,
+      };
+    },
+    USER_LOGOUT: (state, payload) => {
+      return {};
+    },
+  },
+  effects: (dispatch) => {
+    const { AuthLogin } = dispatch;
+    return {
+      async login(formData) {
+        try {
+          this.REQUEST();
+
+          const { data } = await api.post(`/api/v1/auth/register`, formData);
+
+          this.SUCCESS(data);
+        } catch (error) {
+          this.FAIL(error);
+        }
+      },
+    };
+  },
+};
 export const AuthLogin = {
   state: {},
   reducers: {
@@ -31,7 +72,7 @@ export const AuthLogin = {
         try {
           AuthLogin.USER_LOGIN_REQUEST();
 
-          const res = await api.post(`/api/v1/auth/login`, formData);
+          const res = await api.post(`/api/v1/auth/signIn`, formData);
           let dataItem = res.data.data[0];
           let data = res.data.data[0];
 

@@ -62,10 +62,6 @@ const Update = ({ showModal, setShowModal, currentData, tableData }) => {
 
     dispatch.getSaccos.Saccos(params);
 
-    if (success || error) {
-      dispatch.updateCustomers.RESET();
-    }
-
     if (updateVehicleRef.current) {
       setInitialValues({
         plateNumber: updateVehicleRef.current.setFieldValue(
