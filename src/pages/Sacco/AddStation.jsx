@@ -106,10 +106,10 @@ const AddStation = ({ showModal, setShowModal, currentData, tableData }) => {
                   <div className="grid w-full grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2">
                     <CInput
                       type="text"
-                      label="Name"
+                      label="Station Name"
                       id="name"
                       name="name"
-                      placeholder="Name"
+                      placeholder="Station Name"
                       value={input.name}
                       onChange={(e) => {
                         handleFormChange(index, e);
@@ -120,10 +120,10 @@ const AddStation = ({ showModal, setShowModal, currentData, tableData }) => {
 
                     <CInput
                       type="text"
-                      label="Phone Number"
+                      label="Station Phone Number"
                       id="phoneNumber"
                       name="phoneNumber"
-                      placeholder="Phone Number"
+                      placeholder="Station Phone Number"
                       value={input.phoneNumber}
                       onChange={(e) => {
                         handleFormChange(index, e);

@@ -24,43 +24,7 @@ import AddSaccoStation from "./AddStation";
 import AddOfficial from "./AddOfficial";
 import AddCharge from "./AddCharge";
 
-const StatusPill = ({ value }) => {
-  const [toggle, setToggle] = useState(value);
-
-  const handleClick = () => {
-    setToggle(!toggle);
-    if (toggle) {
-      Alert("error", "Status InActive");
-    } else {
-      Alert("success", "Status Active");
-    }
-    console.log(!toggle);
-  };
-
-  return (
-    <div className="flex items-center py-1">
-      <Toggle
-        name="status"
-        id="status"
-        checked={toggle}
-        onChange={handleClick}
-        text={["Active", "InActive"]}
-      />
-    </div>
-  );
-};
-
-const Blacklisted = ({ value }) => {
-  return (
-    <span
-      className={`${value ? "status status-success" : "status status-danger"}`}
-    >
-      {value ? "True" : "False"}
-    </span>
-  );
-};
-
-const Machines = () => {
+const Sacco = () => {
   const dispatch = useDispatch();
   const { currentColor, colorGradient } = useStateContext();
 
@@ -413,4 +377,4 @@ const Machines = () => {
   );
 };
 
-export default Machines;
+export default Sacco;
