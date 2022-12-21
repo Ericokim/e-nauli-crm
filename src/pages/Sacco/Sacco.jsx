@@ -22,6 +22,7 @@ import Add from "./Add";
 import Update from "./Update";
 import AddSaccoStation from "./AddStation";
 import AddOfficial from "./AddOfficial";
+import AddCharge from "./AddCharge";
 
 const StatusPill = ({ value }) => {
   const [toggle, setToggle] = useState(value);
@@ -73,6 +74,7 @@ const Machines = () => {
   const [showEditModal, setShowEditModal] = useState(false);
   const [showOfficialModal, setShowOfficialModal] = useState(false);
   const [showStationModal, setShowStationModal] = useState(false);
+  const [showChargeModal, setShowChargeModal] = useState(false);
   const [currentData, setCurrentData] = useState({});
 
   const getSaccos = useSelector((state) => state.getSaccos);
@@ -249,6 +251,23 @@ const Machines = () => {
               >
                 <i className="bx bx-plus text-xl"></i>
               </Button>
+
+              <Button
+                color="indigo"
+                buttonType="fill"
+                size="sm"
+                rounded={false}
+                block={false}
+                iconOnly={true}
+                ripple="light"
+                title="Add Charge"
+                onClick={() => {
+                  setShowChargeModal(true);
+                  setCurrentData(item);
+                }}
+              >
+                <i className="bx bx-plus text-xl"></i>
+              </Button>
             </div>
           );
         },
@@ -377,6 +396,12 @@ const Machines = () => {
         currentData={currentData}
         showModal={showOfficialModal}
         setShowModal={setShowOfficialModal}
+      />
+      <AddCharge
+        tableData={tableData}
+        currentData={currentData}
+        showModal={showChargeModal}
+        setShowModal={setShowChargeModal}
       />
       <AddSaccoStation
         tableData={tableData}

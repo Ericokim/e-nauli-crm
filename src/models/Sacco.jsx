@@ -203,7 +203,6 @@ export const updateSaccoStatus = {
   },
 };
 
-
 export const addSaccoStation = {
   state: {
     saccoStation: {},
@@ -242,7 +241,10 @@ export const addSaccoStation = {
         try {
           this.REQUEST();
 
-          const { data } = await api.post(`/api/v1/sacco/addSaccoStation`, formData);
+          const { data } = await api.post(
+            `/api/v1/sacco/addSaccoStation`,
+            formData
+          );
 
           this.SUCCESS(data);
         } catch (error) {
@@ -252,7 +254,6 @@ export const addSaccoStation = {
     };
   },
 };
-
 
 export const addOfficial = {
   state: {
@@ -292,7 +293,62 @@ export const addOfficial = {
         try {
           this.REQUEST();
 
-          const { data } = await api.post(`/api/v1/sacco/addSaccosOfficial`, formData);
+          const { data } = await api.post(
+            `/api/v1/sacco/addSaccosOfficial`,
+            formData
+          );
+
+          this.SUCCESS(data);
+        } catch (error) {
+          this.FAIL(error);
+        }
+      },
+    };
+  },
+};
+
+export const addCharge = {
+  state: {
+    saccoCharge: {},
+  },
+  reducers: {
+    REQUEST: (state, payload) => {
+      return {
+        loading: true,
+      };
+    },
+    SUCCESS: (state, payload) => {
+      return {
+        loading: false,
+        saccoCharge: payload?.data,
+        success: payload.message.includes("successfully")
+          ? payload.message
+          : null,
+      };
+    },
+    FAIL: (state, payload) => {
+      return {
+        loading: false,
+        saccoCharge: null,
+        error: payload ? payload.error : payload.response.data?.message,
+      };
+    },
+    RESET: () => {
+      return {
+        saccoCharge: {},
+      };
+    },
+  },
+  effects: (dispatch) => {
+    return {
+      async Add(formData) {
+        try {
+          this.REQUEST();
+
+          const { data } = await api.post(
+            `/api/v1/sacco/addSaccoCharge`,
+            formData
+          );
 
           this.SUCCESS(data);
         } catch (error) {
