@@ -74,7 +74,7 @@ const AddStation = ({ showModal, setShowModal, currentData, tableData }) => {
     Clear();
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     const formData = {
       saccoId: currentData.saccoId,
@@ -83,7 +83,7 @@ const AddStation = ({ showModal, setShowModal, currentData, tableData }) => {
 
     console.log(formData);
 
-    dispatch.addSaccoStation.Add(formData);
+    await dispatch.addSaccoStation.Add(formData);
     tableData();
     setShowModal(false);
     setInitialValues([{ name: "", phoneNumber: "" }]);
