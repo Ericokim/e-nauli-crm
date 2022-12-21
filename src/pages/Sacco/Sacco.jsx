@@ -20,7 +20,8 @@ import { CSelect, SInput } from "../../components/Input/cInput";
 import Loader from "../../components/Loader";
 import Add from "./Add";
 import Update from "./Update";
-import AddSaccoStation from "./AddSaccoStation";
+import AddSaccoStation from "./AddStation";
+import AddOfficial from "./AddOfficial";
 
 const StatusPill = ({ value }) => {
   const [toggle, setToggle] = useState(value);
@@ -70,8 +71,8 @@ const Machines = () => {
 
   const [showModal, setShowModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
-  const [showAddSaccoStationModal, setShowAddSaccoStationModal] =
-    useState(false);
+  const [showOfficialModal, setShowOfficialModal] = useState(false);
+  const [showStationModal, setShowStationModal] = useState(false);
   const [currentData, setCurrentData] = useState({});
 
   const getSaccos = useSelector((state) => state.getSaccos);
@@ -225,7 +226,24 @@ const Machines = () => {
                 ripple="light"
                 title="Add Station"
                 onClick={() => {
-                  setShowAddSaccoStationModal(true);
+                  setShowStationModal(true);
+                  setCurrentData(item);
+                }}
+              >
+                <i className="bx bx-plus text-xl"></i>
+              </Button>
+
+              <Button
+                color="teal"
+                buttonType="fill"
+                size="sm"
+                rounded={false}
+                block={false}
+                iconOnly={true}
+                ripple="light"
+                title="Add Official"
+                onClick={() => {
+                  setShowOfficialModal(true);
                   setCurrentData(item);
                 }}
               >
@@ -354,11 +372,17 @@ const Machines = () => {
         setShowModal={setShowEditModal}
       />
 
+      <AddOfficial
+        tableData={tableData}
+        currentData={currentData}
+        showModal={showOfficialModal}
+        setShowModal={setShowOfficialModal}
+      />
       <AddSaccoStation
         tableData={tableData}
         currentData={currentData}
-        showModal={showAddSaccoStationModal}
-        setShowModal={setShowAddSaccoStationModal}
+        showModal={showStationModal}
+        setShowModal={setShowStationModal}
       />
     </main>
   );

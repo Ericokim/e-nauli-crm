@@ -252,3 +252,53 @@ export const addSaccoStation = {
     };
   },
 };
+
+
+export const addOfficial = {
+  state: {
+    saccoOfficial: {},
+  },
+  reducers: {
+    REQUEST: (state, payload) => {
+      return {
+        loading: true,
+      };
+    },
+    SUCCESS: (state, payload) => {
+      return {
+        loading: false,
+        saccoOfficial: payload?.data,
+        success: payload.message.includes("successfully")
+          ? payload.message
+          : null,
+      };
+    },
+    FAIL: (state, payload) => {
+      return {
+        loading: false,
+        saccoOfficial: null,
+        error: payload ? payload.error : payload.response.data?.message,
+      };
+    },
+    RESET: () => {
+      return {
+        saccoOfficial: {},
+      };
+    },
+  },
+  effects: (dispatch) => {
+    return {
+      async Add(formData) {
+        try {
+          this.REQUEST();
+
+          const { data } = await api.post(`/api/v1/sacco/addSaccosOfficial`, formData);
+
+          this.SUCCESS(data);
+        } catch (error) {
+          this.FAIL(error);
+        }
+      },
+    };
+  },
+};

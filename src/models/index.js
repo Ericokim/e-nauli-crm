@@ -11,6 +11,7 @@ import {
   updateSacco,
   updateSaccoStatus,
   addSaccoStation,
+  addOfficial,
 } from "./Sacco";
 
 export const models = {
@@ -28,4 +29,5 @@ export const models = {
   updateSacco,
   updateSaccoStatus,
   addSaccoStation,
+  addOfficial,
 };
