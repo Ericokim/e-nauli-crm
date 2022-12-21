@@ -20,6 +20,7 @@ import { CSelect, SInput } from "../../components/Input/cInput";
 import Loader from "../../components/Loader";
 import Add from "./Add";
 import Update from "./Update";
+import AddSaccoStation from "./AddSaccoStation";
 
 const StatusPill = ({ value }) => {
   const [toggle, setToggle] = useState(value);
@@ -69,7 +70,8 @@ const Machines = () => {
 
   const [showModal, setShowModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
-  const [showUploadModal, setShowUploadModal] = useState(false);
+  const [showAddSaccoStationModal, setShowAddSaccoStationModal] =
+    useState(false);
   const [currentData, setCurrentData] = useState({});
 
   const getSaccos = useSelector((state) => state.getSaccos);
@@ -213,19 +215,22 @@ const Machines = () => {
                 <i className="bx bxs-edit text-xl"></i>
               </Button>
 
-              {/* <Button
-                color="red"
+              <Button
+                color="purple"
                 buttonType="fill"
                 size="sm"
                 rounded={false}
                 block={false}
                 iconOnly={true}
                 ripple="light"
-                title="Remove Station"
-                // onClick={() => alert(row.original[0])}
+                title="Add Station"
+                onClick={() => {
+                  setShowAddSaccoStationModal(true);
+                  setCurrentData(item);
+                }}
               >
-                <i className="bx bx-trash text-xl"></i>
-              </Button> */}
+                <i className="bx bx-plus text-xl"></i>
+              </Button>
             </div>
           );
         },
@@ -347,6 +352,13 @@ const Machines = () => {
         currentData={currentData}
         showModal={showEditModal}
         setShowModal={setShowEditModal}
+      />
+
+      <AddSaccoStation
+        tableData={tableData}
+        currentData={currentData}
+        showModal={showAddSaccoStationModal}
+        setShowModal={setShowAddSaccoStationModal}
       />
     </main>
   );
