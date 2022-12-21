@@ -928,6 +928,12 @@ h2{
 .mt-16{
   margin-top: 4rem;
 }
+.mt-3{
+  margin-top: 0.75rem;
+}
+.ml-4{
+  margin-left: 1rem;
+}
 .block{
   display: block;
 }
@@ -3634,6 +3640,10 @@ h2{
     grid-template-columns: repeat(1, minmax(0, 1fr));
   }
 
+  .md\:grid-cols-3{
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
   .md\:flex-row{
     flex-direction: row;
   }
@@ -3667,6 +3677,10 @@ h2{
   .lg\:grid-cols-1{
     grid-template-columns: repeat(1, minmax(0, 1fr));
   }
+
+  .lg\:grid-cols-3{
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 @media (min-width: 1280px){
 
@@ -3684,5 +3698,13 @@ h2{
 
   .xl\:grid-cols-1{
     grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+
+  .xl\:grid-cols-2{
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .xl\:grid-cols-3{
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
