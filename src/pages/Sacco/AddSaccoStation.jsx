@@ -83,7 +83,7 @@ const AddStation = ({ showModal, setShowModal, currentData, tableData }) => {
 
     console.log(formData);
 
-    await dispatch.addSaccoStation.Add(formData);
+    dispatch.addSaccoStation.Add(formData);
     tableData();
     setShowModal(false);
     setInitialValues([{ name: "", phoneNumber: "" }]);
